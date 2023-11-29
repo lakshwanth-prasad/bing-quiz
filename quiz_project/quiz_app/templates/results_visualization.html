@@ -1,0 +1,33 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+  <div class="container">
+    <h1>Quiz Results Visualization</h1>
+
+    <!-- Displaying the top 5 results -->
+    <section>
+      <h2>Top 5 Results</h2>
+      <ul>
+        {% for result in top_5_results %}
+          <li>{{ result.user.username }}: {{ result.score }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <!-- Displaying the bottom 5 results -->
+    <section>
+      <h2>Bottom 5 Results</h2>
+      <ul>
+        {% for result in bottom_5_results %}
+          <li>{{ result.user.username }}: {{ result.score }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <!-- Displaying the average score -->
+    <section>
+      <h2>Average Score</h2>
+      <p>Average score of all quizzes: {{ average_score }}</p>
+    </section>
+  </div>
+{% endblock %}
