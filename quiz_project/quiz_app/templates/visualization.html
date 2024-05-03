@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+    
+        body {
+          font-family: "Montserrat", sans-serif;
+          background-color: #f2f2f2;
+        }
+    
+        .navbar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background-color: #333;
+          color: #fff;
+          padding: 10px 20px;
+        }
+    
+        .logo {
+          font-size: 24px;
+        }
+    
+        .container {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
+          height: 100vh;
+          opacity: 0;
+          animation: fadeInFromBelow 1s ease-in-out forwards;
+        }
+    
+        .user-info {
+          text-align: center;
+          margin-right: 10px;
+        }
+    
+        .logout-button {
+          background-color: #235347;
+          color: #fff;
+          padding: 10px 20px;
+          text-decoration: none;
+          border-radius: 5px;
+          margin-right: 10px;
+        }
+    
+        .header {
+          text-align: center;
+          margin-top: 50px;
+        }
+    
+        .buttons {
+          text-align: center;
+        }
+    
+        .button {
+          display: inline-block;
+          padding: 20px 40px;
+          margin: 20px;
+          background-color: #235347;
+          border: none;
+          border-radius: 10px;
+          font-family: "Montserrat", sans-serif;
+          font-size: 24px;
+          color: #fff;
+          text-decoration: none;
+          cursor: pointer;
+        }
+    
+        @keyframes fadeInFromBelow {
+          from {
+            transform: translateY(20px);
+            opacity: 0;
+          }
+    
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+      </style>
+    <title>Quiz Results Visualization</title>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+          Bing Quiz
+        </div>
+        <div class="user-info">
+    
+          <span style='margin-right: 15px'>Welcome {{ user.username }}</span>
+          <a href="{% url 'logout_view' %}" class="logout-button" style='margin-right: 0px'>Logout</a>
+        </div>
+    </div>
+    <h1>Quiz Results Visualization</h1>
+
+    <form method="get">
+        <label for="quiz_id">Select a Quiz:</label>
+        <select name="quiz_id" id="quiz_id">
+            {% for quiz in quizzes %}
+                <option value="{{ quiz.id }}">{{ quiz.title }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Visualize</button>
+    </form>
+
+    {% for graph_url in graph_urls %}
+        <div style="margin-top: 20px;">
+            <img src="{{ graph_url }}" alt="Results Graph">
+        </div>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            opacity: 0;
+            animation: fadeInFromBelow 1s ease-in-out forwards;
+        }
+
+        .user-info {
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        .logout-button {
+            background-color: #235347;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .header {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .buttons {
+            text-align: center;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 20px;
+            background-color: #235347;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Rubik', sans-serif;
+            font-size: 15px;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @keyframes fadeInFromBelow {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="logo">
+            Bing Quiz
+        </div>
+        <div class="user-info">
+
+            <span style='margin-right: 15px'>Welcome {{ quiz_app_user.username }}</span>
+            <a href="/user_logout" class="logout-button" style='margin-right: 0px'>Logout</a>
+        </div>
+    </div>
+    <h1>Questions on {{ topic.name }}</h1>
+    <form action="{% url 'submit_quiz' %}" method="post">
+        {% csrf_token %}
+        {% for question in questions %}
+        <div>
+            <p>{{ question.text }}</p>
+            <div>
+                <input type="radio" id="option1_{{ question.id }}" name="question_{{ question.id }}"
+                    value="{{ question.option1 }}">
+                <label for="option1_{{ question.id }}">{{ question.option1 }}</label>
+            </div>
+            <div>
+                <input type="radio" id="option2_{{ question.id }}" name="question_{{ question.id }}"
+                    value="{{ question.option2 }}">
+                <label for="option2_{{ question.id }}">{{ question.option2 }}</label>
+            </div>
+            <div>
+                <input type="radio" id="option3_{{ question.id }}" name="question_{{ question.id }}"
+                    value="{{ question.option3 }}">
+                <label for="option3_{{ question.id }}">{{ question.option3 }}</label>
+            </div>
+            <div>
+                <input type="radio" id="option4_{{ question.id }}" name="question_{{ question.id }}"
+                    value="{{ question.option4 }}">
+                <label for="option4_{{ question.id }}">{{ question.option4 }}</label>
+            </div>
+        </div>
+        {% endfor %}
+        <button class="button" type="submit">Submit</button>
+    </form>
+</body>
+
+</html>

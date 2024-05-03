@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Dashboard</title>
+  <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Montserrat", sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+    }
+
+    .logo {
+      font-size: 24px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      height: 100vh;
+      opacity: 0;
+      animation: fadeInFromBelow 1s ease-in-out forwards;
+    }
+
+    .user-info {
+      text-align: center;
+      margin-right: 10px;
+    }
+
+    .logout-button {
+      background-color: #235347;
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    .header {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .buttons {
+      text-align: center;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 20px 40px;
+      margin: 20px;
+      background-color: #235347;
+      border: none;
+      border-radius: 10px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 24px;
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    @keyframes fadeInFromBelow {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="navbar">
+    <div class="logo">
+      Bing Quiz
+    </div>
+    <div class="user-info">
+
+      <span style='margin-right: 15px'>Welcome {{ user.username }}</span>
+      <a href="{% url 'logout_view'%}" class="logout-button" style='margin-right: 0px'>Logout</a>
+    </div>
+  </div>
+
+  <div class="container fade-in">
+    <h1 class="header">Quizzes in {{ topic.name }}</h1>
+    <div class="buttons">
+    {% for quiz in quizzes %}
+        <a href="{% url 'quiz_page' quiz.id %}" class="button">{{ quiz.title }}</a>
+    {% endfor %}
+    <p class="animation a5"><a href="{% url 'quiz_dashboard' %}">Return to Topic Dashboard</a></p>
+    </div>
+  </div>
+
+</body>
+
+</html>
